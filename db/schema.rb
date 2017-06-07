@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603050304) do
+ActiveRecord::Schema.define(version: 20170606230128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,35 @@ ActiveRecord::Schema.define(version: 20170603050304) do
     t.index ["site_id"], name: "index_availabilities_on_site_id"
   end
 
+  create_table "availability_matches", force: :cascade do |t|
+    t.bigint "availability_request_id"
+    t.bigint "site_id"
+    t.date "avail_date"
+    t.integer "length"
+    t.boolean "available", default: false, null: false
+    t.datetime "unavailable_at"
+    t.datetime "notified_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["availability_request_id"], name: "index_availability_matches_on_availability_request_id"
+    t.index ["site_id"], name: "index_availability_matches_on_site_id"
+  end
+
+  create_table "availability_requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "facility_id"
+    t.date "date_start"
+    t.date "date_end"
+    t.integer "stay_length"
+    t.jsonb "details"
+    t.text "site_ids", default: [], array: true
+    t.text "sites_ext_ids", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_availability_requests_on_facility_id"
+    t.index ["user_id"], name: "index_availability_requests_on_user_id"
+  end
+
   create_table "facilities", force: :cascade do |t|
     t.bigint "agency_id"
     t.string "name"
@@ -53,8 +82,20 @@ ActiveRecord::Schema.define(version: 20170603050304) do
     t.index ["facility_id"], name: "index_sites_on_facility_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "availabilities", "facilities"
   add_foreign_key "availabilities", "sites"
+  add_foreign_key "availability_matches", "availability_requests"
+  add_foreign_key "availability_matches", "sites"
+  add_foreign_key "availability_requests", "facilities"
+  add_foreign_key "availability_requests", "users"
   add_foreign_key "facilities", "agencies"
   add_foreign_key "sites", "facilities"
 end

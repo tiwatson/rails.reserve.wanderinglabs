@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/thoughtbot/shoulda-matchers.git
+  revision: ead87017a6c15adce66a87dce8ee2ece91d0d27c
+  branch: rails-5
+  specs:
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -40,6 +48,8 @@ GEM
       tzinfo (~> 1.1)
     arel (8.0.0)
     builder (3.2.3)
+    bulk_insert (1.4.0)
+      activerecord (>= 4.1.0)
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
     database_cleaner (1.5.3)
@@ -126,8 +136,6 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     ruby_dep (1.5.0)
-    shoulda-matchers (3.1.1)
-      activesupport (>= 4.0.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -152,6 +160,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bulk_insert
   byebug
   database_cleaner
   factory_girl_rails (~> 4.0)
@@ -162,7 +171,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.1)
   rspec-rails (~> 3.5)
-  shoulda-matchers (~> 3.1)
+  shoulda-matchers!
   spring
   spring-watcher-listen (~> 2.0.0)
 

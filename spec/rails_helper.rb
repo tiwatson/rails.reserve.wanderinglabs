@@ -26,6 +26,16 @@ require 'rspec/rails'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+require 'database_cleaner'
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -54,24 +64,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-end
 
-# require database cleaner at the top level
-require 'database_cleaner'
-
-# [...]
-# configure shoulda matchers to use rspec as the test framework and full matcher libraries for rails
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
-  end
-end
-
-# [...]
-RSpec.configuration do |config|
-  # [...]
-  # add `FactoryGirl` methods
   config.include FactoryGirl::Syntax::Methods
 
   # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
@@ -86,5 +79,4 @@ RSpec.configuration do |config|
       example.run
     end
   end
-  # [...]
 end
