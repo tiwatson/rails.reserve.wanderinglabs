@@ -1,4 +1,4 @@
-module Import::RecreationGov
+module InitialImport::RecreationGov
   class Facilities
     def self.perform
       puts "Activities: #{activities_data.size} - #{activities_data[0]}"
@@ -6,7 +6,7 @@ module Import::RecreationGov
 
       rec_data.each do |data|
         facility = agency.facilities.find_or_initialize_by(name: data['FacilityName'])
-        details = Import::RecreationGov::FacilityDetails.new(data).details
+        details = InitialImport::RecreationGov::FacilityDetails.new(data).details
         facility.update_attribute(:details, details)
       end
       puts "Now: #{agency.reload.facilities.count}"

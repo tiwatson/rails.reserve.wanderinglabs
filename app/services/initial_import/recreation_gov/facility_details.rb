@@ -1,4 +1,4 @@
-module Import::RecreationGov
+module InitialImport::RecreationGov
   class FacilityDetails
     attr_accessor :attrs
     def initialize(attrs)
