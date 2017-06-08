@@ -1,0 +1,71 @@
+<style>
+  .availHeader {
+    color: #a3a3a3;
+    font-weight: bold;
+    font-size: 85%;
+  }
+
+  .availTable {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .availTable > tr > td {
+    font-size: 85%;
+  }
+
+  .link {
+    color: #77b57a;
+    text-decoration: none;
+    line-height: 2;
+    font-size: 108%;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .availTitle {
+    font-weight: bold;
+    font-size: 16px;
+    Margin-bottom: 0px;
+  }
+</style>
+
+<table class="availTable">
+  <% [false, true].each do |bool| %>
+    <tr>
+      <td colspan=4>
+        <h4 class="availTitle"><%= bool ? 'Just recently available:' : 'Previously notified but still available:' %></h4>
+      </td>
+    </tr>
+    <tr class="availHeader align-left">
+      <th>Date</th>
+      <th># Nights</th>
+      <th>Site</th>
+    <tr>
+
+    <% @availability_request.available_matches(bool).each do |am| %>
+      <tr>
+        <td><%= am.avail_date %></td>
+        <td><%= am.length %></td>
+        <td><%= am.site.site_num %></td>
+        <td>
+          <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+            <tbody>
+              <tr>
+                <td align="left">
+                  <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td> <a href="<%= am.site.reserve_link(am.avail_date, @availability_request.stay_length) %>" target="_blank">Reserve</a> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    <% end %>
+
+  <% end %>
+</table>

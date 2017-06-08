@@ -28,6 +28,7 @@ gem 'puma', '~> 3.7'
 gem 'httparty'
 gem 'bulk_insert'
 gem 'aws-sdk', '~> 2'
+gem "actionmailer_inline_css", git: 'https://github.com/premailer/actionmailer_inline_css.git', branch: 'master'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

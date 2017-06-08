@@ -37,11 +37,18 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
-
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # assume using mailcatcher smtp server (http://mailcatcher.me)
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+  # gem install mailcatcher
+  # mailcatcher
+  # Go to http://localhost:1080/
+  # Send mail through smtp://localhost:1025
 end

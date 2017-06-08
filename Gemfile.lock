@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/premailer/actionmailer_inline_css.git
+  revision: 7f1774ad9e088f48f5cdc8bb57d1bcfecc69f2a9
+  branch: master
+  specs:
+    actionmailer_inline_css (1.5.3)
+      actionmailer (>= 3.0.0)
+      nokogiri (>= 1.4.4)
+      premailer (>= 1.7.1)
+
+GIT
   remote: https://github.com/thoughtbot/shoulda-matchers.git
   revision: ead87017a6c15adce66a87dce8ee2ece91d0d27c
   branch: rails-5
@@ -46,6 +56,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.1)
+      public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
     aws-sdk (2.9.34)
       aws-sdk-resources (= 2.9.34)
@@ -60,6 +72,8 @@ GEM
       activerecord (>= 4.1.0)
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
+    css_parser (1.5.0)
+      addressable
     database_cleaner (1.5.3)
     diff-lcs (1.2.5)
     erubi (1.6.0)
@@ -73,6 +87,7 @@ GEM
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    htmlentities (4.3.4)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.8.4)
@@ -96,6 +111,11 @@ GEM
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
     pg (0.20.0)
+    premailer (1.10.4)
+      addressable
+      css_parser (>= 1.4.10)
+      htmlentities (>= 4.0.0)
+    public_suffix (2.0.5)
     puma (3.9.0)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -169,6 +189,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionmailer_inline_css!
   aws-sdk (~> 2)
   bulk_insert
   byebug
