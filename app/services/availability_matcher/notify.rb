@@ -12,7 +12,8 @@ module AvailabilityMatcher
     end
 
     def notify
-      puts 'YUP..notify'
+      availability_request.notify
+      available_matches.select { |a| a.notified_at.nil? }.update_all(notified_at: Time.now)
     end
   end
 end
