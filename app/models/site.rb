@@ -1,5 +1,12 @@
 class Site < ApplicationRecord
+  extend Enumerize
+
   belongs_to :facility
+
+  enumerize :site_type, in: %i[group tent_walk_in tent other rv], predicates: { prefix: true }
+
+  scope :electric, (->(lngth) { where('electric >= ?', lngth) })
+  scope :site_length, (->(lngth) { where('length >= ?', lngth) })
 
   def reserve_link(date, length)
     arvdate = date.strftime('%m/%d/%Y')

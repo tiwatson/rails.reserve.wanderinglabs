@@ -1,7 +1,11 @@
 class AvailabilityRequest < ApplicationRecord
+  extend Enumerize
+
   belongs_to :user
   belongs_to :facility
   has_many :availability_matches
+  serialize :specific_site_ids, Array
+  enumerize :site_type, in: %i[group tent_walk_in tent other rv rv_tent], predicates: { prefix: true }
 
   scope :active, (-> { where('date_end > ?', Time.now.to_date) })
 
@@ -31,7 +35,7 @@ class AvailabilityRequest < ApplicationRecord
   end
 
   def site_matcher
-    SiteMatcher::RecreationGov.new(facility.id, details)
+    SiteMatcher.new(self)
   end
 
   def notify

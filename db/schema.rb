@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606230128) do
+ActiveRecord::Schema.define(version: 20170608211040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(version: 20170606230128) do
     t.text "sites_ext_ids", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "pullthru"
+    t.boolean "water"
+    t.boolean "sewer"
+    t.integer "min_electric"
+    t.integer "min_length"
+    t.string "site_type"
+    t.text "specific_site_ids"
     t.index ["facility_id"], name: "index_availability_requests_on_facility_id"
     t.index ["user_id"], name: "index_availability_requests_on_user_id"
   end
@@ -79,6 +86,12 @@ ActiveRecord::Schema.define(version: 20170606230128) do
     t.jsonb "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "pullthru", default: false, null: false
+    t.boolean "water", default: false, null: false
+    t.boolean "sewer", default: false, null: false
+    t.integer "electric"
+    t.integer "length"
+    t.string "site_type"
     t.index ["facility_id"], name: "index_sites_on_facility_id"
   end
 
