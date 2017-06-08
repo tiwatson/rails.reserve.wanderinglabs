@@ -16,3 +16,5 @@
 .byebug_history
 
 /db/data/recreation_gov/*
+.envrc
+.env

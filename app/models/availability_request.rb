@@ -3,6 +3,8 @@ class AvailabilityRequest < ApplicationRecord
   belongs_to :facility
   has_many :availability_matches
 
+  scope :active, ->{ where('date_end > ?', Time.now.to_date) }
+
   def date_range
     [
       [date_start, date_end]

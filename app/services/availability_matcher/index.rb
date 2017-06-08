@@ -7,6 +7,14 @@ module AvailabilityMatcher
       @availability_request = availability_request
     end
 
+    def self.perform(scrape, facility_id)
+      facility = Facility.find facility_id
+      facility.availability_requests.active.each do |ar|
+        new(scrape, ar).perform
+      end
+      nil
+    end
+
     def perform
       mark_unavailable
       notify.notify if notify.needed?
