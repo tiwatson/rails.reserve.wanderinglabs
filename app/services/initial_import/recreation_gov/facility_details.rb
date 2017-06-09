@@ -31,20 +31,38 @@ module InitialImport::RecreationGov
     end
 
     def self.address_data
-      Rails.cache.fetch('address_data') do
-        JSON.parse(HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/FacilityAddresses_API_v1.json').body)['RECDATA']
-      end
+      @_address_data ||= JSON.parse(address_data_json)['RECDATA']
     end
 
     def self.organization_linking_data
-      Rails.cache.fetch('organization_linking_data') do
-        JSON.parse(HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/OrgEntities_API_v1.json').body)['RECDATA']
-      end
+      @_organization_linking_data ||= JSON.parse(organization_linking_data_json)['RECDATA']
     end
 
     def self.organization_data
-      Rails.cache.fetch('organization_data') do
-        JSON.parse(HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/Organizations_API_v1.json').body)['RECDATA']
+      @_organization_data ||= JSON.parse(organization_data_json)['RECDATA']
+    end
+
+    def self.address_data_json
+      if Rails.env.development?
+        File.open('db/data/recreation_gov/FacilityAddresses_API_v1.json').read
+      else
+        HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/FacilityAddresses_API_v1.json').body
+      end
+    end
+
+    def self.organization_linking_data_json
+      if Rails.env.development?
+        File.open('db/data/recreation_gov/OrgEntities_API_v1.json').read
+      else
+        HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/OrgEntities_API_v1.json').body
+      end
+    end
+
+    def self.organization_data_json
+      if Rails.env.development?
+        File.open('db/data/recreation_gov/Organizations_API_v1.json').read
+      else
+        HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/Organizations_API_v1.json').body
       end
     end
   end
