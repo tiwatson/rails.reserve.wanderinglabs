@@ -32,19 +32,19 @@ module InitialImport::RecreationGov
 
     def self.address_data
       Rails.cache.fetch('address_data') do
-        JSON.parse(File.open('db/data/RIDBFullExport_v1/FacilityAddresses_API_v1.json').read)['RECDATA']
+        JSON.parse(HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/FacilityAddresses_API_v1.json').body)['RECDATA']
       end
     end
 
     def self.organization_linking_data
       Rails.cache.fetch('organization_linking_data') do
-        JSON.parse(File.open('db/data/RIDBFullExport_v1/OrgEntities_API_v1.json').read)['RECDATA']
+        JSON.parse(HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/OrgEntities_API_v1.json').body)['RECDATA']
       end
     end
 
     def self.organization_data
       Rails.cache.fetch('organization_data') do
-        JSON.parse(File.open('db/data/RIDBFullExport_v1/Organizations_API_v1.json').read)['RECDATA']
+        JSON.parse(HTTParty.get('http://availabilities-dev.s3.amazonaws.com/recreation_gov_data/Organizations_API_v1.json').body)['RECDATA']
       end
     end
   end
