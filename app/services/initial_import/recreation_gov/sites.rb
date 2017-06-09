@@ -8,11 +8,12 @@ module InitialImport::RecreationGov
     def import(reset = false)
       delete_all if reset
 
-      url = 'https://www.recreation.gov/campsiteSearch.do?contractCode=NRSO&parkId=70923&xml=true'
+      url = "https://www.recreation.gov/campsiteSearch.do?contractCode=NRSO&parkId=#{facility.park_id}&xml=true"
+      puts url
       r = HTTParty.get(url)
       b = r.body
       h = Hash.from_xml(b)
-      h['resultset']['result'].each_with_index do |set, x|
+      Array.wrap(h['resultset']['result']).each_with_index do |set, x|
         Site.create(
           facility_id: facility.id,
           ext_site_id: set['SiteId'],
