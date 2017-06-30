@@ -3,6 +3,8 @@ class Facility < ApplicationRecord
   has_many :sites
   has_many :availability_requests
 
+  scope :lookup, (->(start) { where('name ILIKE ?', "#{start}%").order('name ASC').limit(15) })
+
   def self.active_facilities
     Facility.joins(:availability_requests).merge(AvailabilityRequest.active)
   end
@@ -13,7 +15,7 @@ class Facility < ApplicationRecord
       contractCode: 'NRSO',
       parkId: park_id,
       startDate: scrape_start.strftime('%m/%d/%Y'),
-      endDate: scrape_end.strftime('%m/%d/%Y')
+      endDate: scrape_end.strftime('%m/%d/%Y'),
     }
   end
 

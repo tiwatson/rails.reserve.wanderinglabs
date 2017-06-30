@@ -31,6 +31,9 @@ gem 'aws-sdk', '~> 2'
 gem "actionmailer_inline_css", git: 'https://github.com/premailer/actionmailer_inline_css.git', branch: 'master'
 gem 'enumerize'
 
+gem 'active_model_serializers', '~> 0.10.0'
+gem 'rack-cors'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
