@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630041053) do
+ActiveRecord::Schema.define(version: 20170703001542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20170630041053) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "booking_window"
+    t.datetime "last_import"
+    t.string "last_import_hash"
     t.index ["agency_id"], name: "index_facilities_on_agency_id"
   end
 
@@ -104,7 +106,9 @@ ActiveRecord::Schema.define(version: 20170630041053) do
     t.datetime "updated_at", null: false
     t.string "auth_token"
     t.datetime "last_seen"
+    t.string "login_token"
     t.index ["auth_token"], name: "index_users_on_auth_token"
+    t.index ["login_token"], name: "index_users_on_login_token"
   end
 
   add_foreign_key "availabilities", "facilities"

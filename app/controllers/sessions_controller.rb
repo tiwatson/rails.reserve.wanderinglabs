@@ -2,10 +2,9 @@ class SessionsController < ApplicationController
   skip_before_action :login_required, only: [:create]
 
   def create
-    resource = User.find_for_database_authentication(email: params[:user_login][:email])
-    resource ||= User.new
+    resource = User.where(login_token: params[:token]).first
 
-    if resource.valid_password?(params[:user_login][:password])
+    if resource
       auth_token = resource.generate_auth_token
       render json: { auth_token: auth_token }
     else

@@ -34,6 +34,8 @@ gem 'enumerize'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'rack-cors'
 
+gem 'resque' #, "~> 1.22.0"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
