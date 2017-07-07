@@ -1,9 +1,9 @@
 module AvailabilityMatcher
   class Finder
-    attr_reader :availability_request, :scrape
+    attr_reader :availability_request, :import
 
-    def initialize(scrape, availability_request)
-      @scrape = scrape
+    def initialize(import, availability_request)
+      @import = import
       @availability_request = availability_request
     end
 
@@ -23,7 +23,7 @@ module AvailabilityMatcher
     end
 
     def search
-      AvailabilityMatcher::Search.new(scrape, availability_request).search
+      AvailabilityMatcher::Search.new(import, availability_request).search
     end
   end
 end

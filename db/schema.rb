@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703001542) do
+ActiveRecord::Schema.define(version: 20170707022147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20170703001542) do
   create_table "availabilities", force: :cascade do |t|
     t.bigint "facility_id"
     t.bigint "site_id"
-    t.string "scrape"
     t.date "avail_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "import"
     t.index ["facility_id"], name: "index_availabilities_on_facility_id"
     t.index ["site_id"], name: "index_availabilities_on_site_id"
   end

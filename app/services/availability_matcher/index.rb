@@ -1,16 +1,16 @@
 module AvailabilityMatcher
   class Index
-    attr_reader :availability_request, :scrape
+    attr_reader :availability_request, :import
 
-    def initialize(scrape, availability_request)
-      @scrape = scrape
+    def initialize(import, availability_request)
+      @import = import
       @availability_request = availability_request
     end
 
-    def self.perform(scrape, facility_id)
+    def self.perform(import, facility_id)
       facility = Facility.find(facility_id)
       facility.availability_requests.active.each do |ar|
-        new(scrape, ar).perform
+        new(import, ar).perform
       end
       nil
     end
@@ -30,7 +30,7 @@ module AvailabilityMatcher
     end
 
     def available_matches
-      @_available_matches ||= AvailabilityMatcher::Finder.new(scrape, availability_request).matching_availabilities
+      @_available_matches ||= AvailabilityMatcher::Finder.new(import, availability_request).matching_availabilities
     end
   end
 end
