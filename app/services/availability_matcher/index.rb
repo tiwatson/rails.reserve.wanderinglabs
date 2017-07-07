@@ -17,12 +17,12 @@ module AvailabilityMatcher
 
     def perform
       mark_unavailable
-      notify.notify if notify.needed?
+      notify
       nil
     end
 
     def notify
-      @_notify ||= AvailabilityMatcher::Notify.new(availability_request) # , available_matches)
+      AvailabilityMatcher::Notify.new(availability_request).notify
     end
 
     def mark_unavailable
@@ -34,4 +34,3 @@ module AvailabilityMatcher
     end
   end
 end
-# am=AvailabilityMatcher::Index.new('test', AvailabilityRequest.last).perform

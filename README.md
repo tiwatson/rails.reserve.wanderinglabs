@@ -25,3 +25,5 @@ Things you may want to cover:
 
 
 https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
+
+sudo systemctl restart resque && sudo systemctl restart resque-scheduler
