@@ -7,7 +7,7 @@ class AvailabilitiesController < ApplicationController
     facility.last_import = Time.now
     facility.save
     if facility.previous_changes.keys.include?('last_import_hash')
-      Resque.enqueue(Import, facility.id, params)
+      Resque.enqueue(ImportAvailabilities::RecreationGov, facility.id, params[:import])
     end
     render status_code: 200
   end

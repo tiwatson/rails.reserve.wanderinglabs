@@ -33,10 +33,11 @@ class ImportAvailabilities::RecreationGov
     # select site_id, avail_date from availabilities where import = '17_06_08_17_22'
   end
 
-  def self.perform(url)
+  def self.perform(facility_id, import)
     # http://availabilities-dev.s3.amazonaws.com/10612/17_06_08_17_22.json
-    facility_id = url.split('/')[3]
-    import = url.split('/')[4].gsub('.json', '')
+    # facility_id = url.split('/')[3]
+    # import = url.split('/')[4].gsub('.json', '')
+    url = "http://availabilities-dev.s3.amazonaws.com/#{facility_id}/#{import}.json"
     body = HTTParty.get(url).body
     new(facility_id, import, body).perform
   end
