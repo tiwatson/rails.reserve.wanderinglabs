@@ -1,4 +1,6 @@
 class AvailabilitiesController < ApplicationController
+  skip_before_action :login_required, only: [:import]
+
   def import
     facility = Facility.find(params[:facility_id])
     facility.last_import_hash = params[:hash]
