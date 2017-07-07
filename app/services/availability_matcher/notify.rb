@@ -8,12 +8,12 @@ module AvailabilityMatcher
     end
 
     def needed?
-      available_matches.select { |a| a.notified_at.nil? }.size.positive?
+      available_matches.where(notified_at: nil).count.positive?
     end
 
     def notify
       availability_request.notify
-      available_matches.select { |a| a.notified_at.nil? }.update_all(notified_at: Time.now)
+      available_matches.where(notified_at: nil).update_all(notified_at: Time.now)
     end
   end
 end
