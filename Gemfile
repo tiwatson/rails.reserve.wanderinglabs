@@ -35,6 +35,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'rack-cors'
 
 gem 'resque' #, "~> 1.22.0"
+gem 'resque-scheduler'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,7 +52,7 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-rails-console', require: false
-  gem "capistrano-resque"
+  # gem "capistrano-resque"
 end
 
 group :test do
