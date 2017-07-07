@@ -11,7 +11,7 @@ set :repo_url, 'git@github.com:tiwatson/rails.reserve.wanderinglabs.git'
 set :deploy_to, "/home/deploy/rails.reserve.wanderinglabs"
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/puma.rb')
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -37,3 +37,12 @@ set :default_env, { path: "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PA
 # set :keep_releases, 5
 
 # after "deploy:restart", "resque:restart"
+
+# Puma:
+set :puma_conf, "#{shared_path}/config/puma.rb"
+
+namespace :deploy do
+  before 'check:linked_files', 'puma:config'
+  before 'check:linked_files', 'puma:nginx_config'
+  after 'puma:phased-restart', 'nginx:restart'
+end

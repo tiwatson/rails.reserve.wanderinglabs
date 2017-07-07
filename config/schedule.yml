@@ -1,2 +1,2 @@
 Scrape:
-  every: '1m'
+  every: '1h'

@@ -53,6 +53,8 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails-console', require: false
   # gem "capistrano-resque"
+  gem 'capistrano3-puma'
+  gem 'capistrano3-nginx'
 end
 
 group :test do
