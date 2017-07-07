@@ -22,7 +22,7 @@ module AvailabilityMatcher
     end
 
     def notify
-      @notify ||= AvailabilityMatcher::Notify.new(availability_request, available_matches)
+      @_notify ||= AvailabilityMatcher::Notify.new(availability_request) # , available_matches)
     end
 
     def mark_unavailable
