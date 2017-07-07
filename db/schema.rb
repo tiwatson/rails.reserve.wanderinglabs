@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707022147) do
+ActiveRecord::Schema.define(version: 20170707201623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,9 @@ ActiveRecord::Schema.define(version: 20170707022147) do
     t.integer "min_length"
     t.string "site_type"
     t.text "specific_site_ids"
+    t.integer "checked_count", default: 0
+    t.datetime "checked_at"
+    t.string "status"
     t.index ["facility_id"], name: "index_availability_requests_on_facility_id"
     t.index ["user_id"], name: "index_availability_requests_on_user_id"
   end
