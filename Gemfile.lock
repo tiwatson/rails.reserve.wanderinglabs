@@ -63,6 +63,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    airbrussh (1.1.2)
+      sshkit (>= 1.6.1, != 1.7.0)
     arel (8.0.0)
     aws-sdk (2.9.34)
       aws-sdk-resources (= 2.9.34)
@@ -76,6 +78,13 @@ GEM
     bulk_insert (1.4.0)
       activerecord (>= 4.1.0)
     byebug (9.0.6)
+    capistrano (3.7.2)
+      airbrussh (>= 1.0.0)
+      capistrano-harrow
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-harrow (0.5.3)
     case_transform (0.2)
       activesupport
     concurrent-ruby (1.0.5)
@@ -120,6 +129,9 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     mustermann (1.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (4.0.1)
     nio4r (2.1.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
@@ -207,6 +219,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkit (1.11.5)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
@@ -227,6 +242,7 @@ DEPENDENCIES
   aws-sdk (~> 2)
   bulk_insert
   byebug
+  capistrano
   database_cleaner
   enumerize
   factory_girl_rails (~> 4.0)
