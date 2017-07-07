@@ -51,6 +51,7 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-rails-console', require: false
+  gem "capistrano-resque"
 end
 
 group :test do

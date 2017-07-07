@@ -35,3 +35,5 @@ set :default_env, { path: "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PA
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+# after "deploy:restart", "resque:restart"
