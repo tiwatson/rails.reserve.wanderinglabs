@@ -91,4 +91,8 @@ server {
   if (-f $document_root/system/maintenance.html) {
     return 503;
   }
+
+  location ^~ /api/drupal {
+    deny all;
+  }
 }
