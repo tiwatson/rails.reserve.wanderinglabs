@@ -4,7 +4,7 @@ module AvailabilityMatcher
 
     def initialize(availability_request, ids)
       @availability_request = availability_request
-      @ids = ids
+      @ids = ids # available_matches
     end
 
     def mark
@@ -14,8 +14,8 @@ module AvailabilityMatcher
 
     def no_longer_avail
       availability_request.availability_matches
-                          .available
-                          .not_in_list(ids)
+        .available
+        .not_in_list(ids)
     end
   end
 end
