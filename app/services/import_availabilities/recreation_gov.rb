@@ -1,4 +1,6 @@
 class ImportAvailabilities::RecreationGov
+  @queue = :import
+
   attr_reader :facility_id, :import, :body
 
   def initialize(facility_id, import, body)
