@@ -10,6 +10,9 @@ set :repo_url, 'git@github.com:tiwatson/rails.reserve.wanderinglabs.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/deploy/rails.reserve.wanderinglabs"
 
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
@@ -28,6 +31,7 @@ set :deploy_to, "/home/deploy/rails.reserve.wanderinglabs"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, { path: "/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:$PATH" }
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5

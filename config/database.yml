@@ -78,8 +78,3 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: wandering-labs-availability-4-rails_production
-  username: wandering-labs-availability-4-rails
-  password: <%= ENV['WANDERING-LABS-AVAILABILITY-4-RAILS_DATABASE_PASSWORD'] %>
