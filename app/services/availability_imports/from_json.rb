@@ -19,14 +19,6 @@ class AvailabilityImports::FromJson
         end
       end
     end
-    # TODO: import differences
-    # select site_id, avail_date from availabilities where import = '17_06_08_17_22'
-    # except
-    # select site_id, avail_date from availabilities where import = 'test'
-    # AND
-    # select site_id, avail_date from availabilities where import = 'test'
-    # except
-    # select site_id, avail_date from availabilities where import = '17_06_08_17_22'
   end
 
   def url

@@ -19,6 +19,7 @@ class AvailabilityImports::Index
 
       AvailabilityImports::FromJson.new(import).import
       AvailabilityMatcher::Index.perform(import)
+      Resque.Enqueue(AvailabilityImports::History, import.id)
     end
 
     update_facility
