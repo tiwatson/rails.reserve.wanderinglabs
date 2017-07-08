@@ -17,9 +17,9 @@ class AvailabilityImports::Index
     if import_needed?
       import = AvailabilityImport.create(facility: facility, run_id: run_id)
 
-      AvailabilityImports::FromJson.new(import).import
+      AvailabilityImports::FromJson.new(import).perform
       AvailabilityMatcher::Index.perform(import)
-      Resque.Enqueue(AvailabilityImports::History, import.id)
+      Resque.enqueue(AvailabilityImports::History, import.id)
     end
 
     update_facility
