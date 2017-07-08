@@ -20,7 +20,7 @@ module AvailabilityMatcher
               avail_date,
               "avail_date" - (dense_rank() over(order by "avail_date"))::int g
             FROM availabilities
-            WHERE import = '#{import}' AND site_id IN (#{site_ids}) AND #{avail_date_sql}
+            WHERE availability_import_id = '#{import.id}' AND site_id IN (#{site_ids}) AND #{avail_date_sql}
         ) s
         group by s.g, s.site_id
         having count(avail_date) > #{availability_request.stay_length}

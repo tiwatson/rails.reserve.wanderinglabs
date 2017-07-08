@@ -1,22 +1,21 @@
-class ImportAvailabilities::RecreationGov
-  attr_reader :facility_id, :import
+class AvailabilityImports::FromJson
+  attr_reader :import
 
-  def initialize(facility_id, import)
-    @facility_id = facility_id
+  def initialize(import)
     @import = import
   end
 
-  def import
+  def perform
     # TODO: Prefetch exit_side_id to site.id lookup
-    body.each do |avail_date, ext_sites|
+    body['results'].each do |avail_date, ext_sites|
       puts "avail_date - #{avail_date}"
       avail_date_date = Date.strptime(avail_date, '%m/%d/%Y')
       puts "avail_date_date - #{avail_date_date.month}"
 
-      sites = Site.where(facility_id: facility_id).where(ext_site_id: ext_sites)
+      sites = Site.where(facility_id: import.facility_id).where(ext_site_id: ext_sites)
       Availability.bulk_insert do |avail|
         sites.all.each do |site|
-          avail.add(facility_id: facility_id, site_id: site.id, import: import, avail_date: avail_date_date)
+          avail.add(availability_import_id: import.id, site_id: site.id, avail_date: avail_date_date)
         end
       end
     end
@@ -31,7 +30,7 @@ class ImportAvailabilities::RecreationGov
   end
 
   def url
-    "http://availabilities-dev.s3.amazonaws.com/#{facility_id}/#{import}.json"
+    "http://availabilities-dev.s3.amazonaws.com/#{import.facility_id}/#{import.run_id}.json"
   end
 
   def body

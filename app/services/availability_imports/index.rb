@@ -1,30 +1,27 @@
-class ImportAvailabilities::Index
+class AvailabilityImports::Index
   # Checks previous import hash vs hash provided to see if import is actually required
   # If so.. import and kicks off Matcher service
   # Always calls service that updates checked_(count/at) for active availability requests
 
   @queue = :import
 
-  attr_reader :facility, :import, :hash
+  attr_reader :facility, :run_id, :hash
 
-  def initialize(facility_id, import, hash)
+  def initialize(facility_id, run_id, hash)
     @facility = Facility.find(facility_id)
-    @import = import
+    @run_id = run_id
     @hash = hash
   end
 
   def perform
     if import_needed?
-      import
-      AvailabilityMatcher::Index.perform(import, facility.id)
+      import = AvailabilityImport.create(facility: facility, run_id: run_id)
+
+      AvailabilityImports::FromJson.new(import).import
+      AvailabilityMatcher::Index.perform(import)
     end
 
     update_facility
-  end
-
-  def import
-    # TODO: - OTHER PROVIDERS (or not.. depending on data)
-    ImportAvailabilities::RecreationGov.new(facility.id, import).import
   end
 
   def import_needed?

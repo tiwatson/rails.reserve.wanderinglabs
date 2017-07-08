@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707201623) do
+ActiveRecord::Schema.define(version: 20170708020416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,14 +23,23 @@ ActiveRecord::Schema.define(version: 20170707201623) do
   end
 
   create_table "availabilities", force: :cascade do |t|
-    t.bigint "facility_id"
     t.bigint "site_id"
     t.date "avail_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "import"
-    t.index ["facility_id"], name: "index_availabilities_on_facility_id"
+    t.bigint "availability_import_id"
+    t.index ["availability_import_id"], name: "index_availabilities_on_availability_import_id"
     t.index ["site_id"], name: "index_availabilities_on_site_id"
+  end
+
+  create_table "availability_imports", force: :cascade do |t|
+    t.bigint "facility_id"
+    t.string "run_id"
+    t.date "date_start"
+    t.date "date_end"
+    t.jsonb "history_open"
+    t.jsonb "history_filled"
+    t.index ["facility_id"], name: "index_availability_imports_on_facility_id"
   end
 
   create_table "availability_matches", force: :cascade do |t|
@@ -114,8 +123,9 @@ ActiveRecord::Schema.define(version: 20170707201623) do
     t.index ["login_token"], name: "index_users_on_login_token"
   end
 
-  add_foreign_key "availabilities", "facilities"
+  add_foreign_key "availabilities", "availability_imports"
   add_foreign_key "availabilities", "sites"
+  add_foreign_key "availability_imports", "facilities"
   add_foreign_key "availability_matches", "availability_requests"
   add_foreign_key "availability_matches", "sites"
   add_foreign_key "availability_requests", "facilities"

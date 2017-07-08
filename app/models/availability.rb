@@ -1,4 +1,4 @@
 class Availability < ApplicationRecord
-  belongs_to :facility
+  belongs_to :availability_import
   belongs_to :site
 end

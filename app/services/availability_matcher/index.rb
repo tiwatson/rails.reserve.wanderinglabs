@@ -7,8 +7,8 @@ module AvailabilityMatcher
       @availability_request = availability_request
     end
 
-    def self.perform(import, facility_id)
-      facility = Facility.find(facility_id)
+    def self.perform(import)
+      facility = import.facility
       facility.availability_requests.active.each do |ar|
         new(import, ar).perform
       end
