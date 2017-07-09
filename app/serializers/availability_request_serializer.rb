@@ -1,3 +1,4 @@
 class AvailabilityRequestSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :facility_id
+  attributes :uuid, :user_id, :facility_id, :date_start, :date_end
+  belongs_to :facility
 end

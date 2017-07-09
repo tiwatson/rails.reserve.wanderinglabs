@@ -20,7 +20,11 @@ class AvailabilityImports::FromJson
   end
 
   def url
-    "http://availabilities-dev.s3.amazonaws.com/#{import.facility_id}/#{import.run_id}.json"
+    "http://#{bucket}.s3.amazonaws.com/#{import.facility_id}/#{import.run_id}.json"
+  end
+
+  def bucket
+    Rails.env == 'production' ? 'availabilities-prd' : 'availabilities-dev'
   end
 
   def body

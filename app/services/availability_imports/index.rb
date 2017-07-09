@@ -33,8 +33,6 @@ class AvailabilityImports::Index
     facility.last_import_hash = hash
     facility.last_import = Time.now
     facility.save
-
-    Facilities::Checked.new(facility).mark_as
   end
 
   def self.perform(facility_id, import, hash)

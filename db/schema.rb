@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708020416) do
+ActiveRecord::Schema.define(version: 20170709153232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "agencies", force: :cascade do |t|
     t.string "name"
@@ -77,8 +78,10 @@ ActiveRecord::Schema.define(version: 20170708020416) do
     t.integer "checked_count", default: 0
     t.datetime "checked_at"
     t.string "status"
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.index ["facility_id"], name: "index_availability_requests_on_facility_id"
     t.index ["user_id"], name: "index_availability_requests_on_user_id"
+    t.index ["uuid"], name: "index_availability_requests_on_uuid", unique: true
   end
 
   create_table "facilities", force: :cascade do |t|
