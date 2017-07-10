@@ -6,6 +6,7 @@ class AvailabilityImports::FromJson
   end
 
   def perform
+    update_dates
     # TODO: Prefetch exit_side_id to site.id lookup
     body['results'].each do |avail_date, ext_sites|
       avail_date_date = Date.strptime(avail_date, '%m/%d/%Y')
@@ -17,6 +18,12 @@ class AvailabilityImports::FromJson
         end
       end
     end
+  end
+
+  def update_dates
+    import.date_start = body['startDate']
+    import.date_end = body['endDate']
+    import.save
   end
 
   def url
