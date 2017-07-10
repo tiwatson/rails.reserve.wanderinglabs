@@ -30,10 +30,10 @@
 </style>
 
 <table class="availTable">
-  <% [true, false].each do |bool| %>
+  <% [false, true].each do |bool| %>
     <tr>
       <td colspan=4>
-        <h4 class="availTitle"><%= bool ? 'Just recently available:' : 'Previously notified but still available:' %></h4>
+        <h4 class="availTitle"><%= bool ? 'Previously notified but still available:' : 'Just recently available:' %></h4>
       </td>
     </tr>
     <tr class="availHeader align-left">
@@ -42,7 +42,7 @@
       <th>Site</th>
     <tr>
 
-    <% @availability_request.available_matches(bool).each do |am| %>
+    <% @availability_request.available_matches(bool).limit(25).each do |am| %>
       <tr>
         <td><%= am.avail_date %></td>
         <td><%= am.length %></td>
