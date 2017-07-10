@@ -23,7 +23,7 @@ module AvailabilityMatcher
             WHERE availability_import_id = '#{import.id}' AND site_id IN (#{site_ids}) AND #{avail_date_sql}
         ) s
         group by s.g, s.site_id
-        having count(avail_date) > #{availability_request.stay_length}
+        having count(avail_date) >= #{availability_request.stay_length}
       EOS
     end
 

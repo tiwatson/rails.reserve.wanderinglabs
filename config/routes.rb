@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resource :login_tokens, only: %i[create]
   resource :users
 
-  resources :availability_requests
+  resources :availability_requests do
+    resources :availability_matches
+  end
   resources :facilities, only: %i[index] do
     resources :availabilities do
       collection do

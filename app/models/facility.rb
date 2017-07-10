@@ -6,7 +6,7 @@ class Facility < ApplicationRecord
   scope :lookup, (->(start) { where('name ILIKE ?', "#{start}%").order('name ASC').limit(15) })
 
   def self.active_facilities
-    Facility.joins(:availability_requests).merge(AvailabilityRequest.active)
+    Facility.left_outer_joins(:availability_requests).merge(AvailabilityRequest.active).group('facilities.id')
   end
 
   def scraper_details
