@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :login_required, only: [:create]
+  before_action :login_required, only: [:destroy]
 
   def create
     resource = User.where(login_token: params[:token]).first

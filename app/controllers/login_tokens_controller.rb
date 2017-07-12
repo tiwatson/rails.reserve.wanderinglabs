@@ -1,6 +1,4 @@
 class LoginTokensController < ApplicationController
-  skip_before_action :login_required, only: [:create]
-
   def create
     resource = User.where(email: params[:email]).first
     if resource

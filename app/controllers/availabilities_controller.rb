@@ -1,5 +1,5 @@
 class AvailabilitiesController < ApplicationController
-  skip_before_action :login_required, only: [:import]
+  before_action :login_required, only: [:show]
 
   def show
   end

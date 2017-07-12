@@ -8,8 +8,15 @@ Rails.application.routes.draw do
   resource :users
 
   resources :availability_requests do
-    resources :availability_matches
+    resources :availability_matches, only: %i[index]
   end
+
+  resources :availability_matches, only: [] do
+    member do
+      post :click
+    end
+  end
+
   resources :facilities, only: %i[index] do
     resources :availabilities do
       collection do

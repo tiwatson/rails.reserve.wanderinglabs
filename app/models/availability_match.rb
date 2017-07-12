@@ -6,4 +6,9 @@ class AvailabilityMatch < ApplicationRecord
   scope :not_in_list, (->(ids) { where('id NOT IN (?)', ids) })
   scope :notifiable, (-> { where(notified_at: nil) })
   scope :notified, (-> { where.not(notified_at: nil) })
+
+  def self.find_by_base62(base62)
+    id = Base62.decode(base62)
+    find(id)
+  end
 end

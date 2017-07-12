@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :notification_methods
   has_many :availability_requests
 
   def generate_auth_token
