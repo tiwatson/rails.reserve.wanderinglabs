@@ -39,6 +39,8 @@ class AvailabilityRequest < ApplicationRecord
   end
 
   def notify
-    NotifierMailer.new_availabilities(self).deliver
+    user.notification_methods.all.each do |nm|
+      NotifierMailer.new_availabilities(self, nm).deliver
+    end
   end
 end
