@@ -1,3 +1,3 @@
 class SiteSerializer < ActiveModel::Serializer
-  attributes :site_num
+  attributes :id, :site_num
 end

@@ -7,7 +7,9 @@ class AvailabilityRequest < ApplicationRecord
   serialize :specific_site_ids, Array
   enumerize :site_type, in: %i[group tent_walk_in tent other rv rv_tent], predicates: { prefix: true }
 
-  scope :active, (-> { where('date_end > ?', Time.now.to_date) })
+  enumerize :status, in: %i[active paused canceled ended], predicates: { prefix: true }
+
+  scope :active, (-> { where(status: :active).where('date_end > ?', Time.now.to_date) })
 
   def available_matches(notified = false)
     availability_matches

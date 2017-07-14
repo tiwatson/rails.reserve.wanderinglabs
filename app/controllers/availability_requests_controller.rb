@@ -1,6 +1,6 @@
 class AvailabilityRequestsController < ApplicationController
   def index
-    @availability_requests = AvailabilityRequest.all
+    @availability_requests = AvailabilityRequest.active
     render json: @availability_requests
   end
 
@@ -11,6 +11,13 @@ class AvailabilityRequestsController < ApplicationController
 
   def create
     availability_request = AvailabilityRequests::Creator.new(availability_request_params).create
+    render json: availability_request
+  end
+
+  def update
+    availability_request = AvailabilityRequest.find_by_uuid(params[:id])
+    availability_request.update_attributes(status: params[:status])
+    Rails.logger.debug "Errors #{availability_request.errors.to_json}"
     render json: availability_request
   end
 

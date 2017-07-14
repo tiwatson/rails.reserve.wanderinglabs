@@ -23,5 +23,6 @@ Rails.application.routes.draw do
         post :import
       end
     end
+    resources :sites, only: %i[index]
   end
 end

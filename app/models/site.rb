@@ -5,6 +5,8 @@ class Site < ApplicationRecord
 
   enumerize :site_type, in: %i[group tent_walk_in tent other rv], predicates: { prefix: true }
 
+  scope :lookup, (->(start) { where('site_num ILIKE ?', "%#{start}%").order('site_num ASC').limit(25) })
+
   scope :electric, (->(lngth) { where('electric >= ?', lngth) })
   scope :site_length, (->(lngth) { where('length >= ?', lngth) })
 
