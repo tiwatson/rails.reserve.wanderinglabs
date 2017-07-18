@@ -1,9 +1,13 @@
 class Facility < ApplicationRecord
+  extend Enumerize
+
   belongs_to :agency
   has_many :sites
   has_many :availability_requests
 
   scope :lookup, (->(start) { where('name ILIKE ?', "#{start}%").order('name ASC').limit(15) })
+
+  enumerize :status, in: %i[active removed requires_attention], predicates: { prefix: true }
 
   def self.active_facilities
     Facility.left_outer_joins(:availability_requests).merge(AvailabilityRequest.active).group('facilities.id')
