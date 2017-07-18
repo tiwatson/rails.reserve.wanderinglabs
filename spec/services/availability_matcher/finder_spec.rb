@@ -33,5 +33,10 @@ RSpec.describe AvailabilityMatcher::Finder do
     it 'creates match / does not duplicate previous' do
       expect { finder.matching_availabilities }.to change { AvailabilityMatch.count }.by(1)
     end
+
+    it 'does not duplicate matches' do
+      expect { finder.matching_availabilities }.to change { AvailabilityMatch.count }.by(1)
+      expect { finder.matching_availabilities }.to change { AvailabilityMatch.count }.by(0)
+    end
   end
 end

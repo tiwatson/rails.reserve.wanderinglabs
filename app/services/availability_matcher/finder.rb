@@ -8,7 +8,7 @@ module AvailabilityMatcher
     end
 
     def matching_availabilities
-      search.map(&:symbolize_keys).map do |matched_avail|
+      search.map do |matched_avail|
         availability_match = AvailabilityMatch.find_or_initialize_by(
           availability_request_id: availability_request.id,
           site_id: matched_avail[:site_id],
@@ -22,7 +22,7 @@ module AvailabilityMatcher
     end
 
     def search
-      AvailabilityMatcher::Search.new(import, availability_request).search
+      AvailabilityMatcher::Search.new(availability_request, import.id).search
     end
   end
 end

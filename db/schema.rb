@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710195058) do
+ActiveRecord::Schema.define(version: 20170715234424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20170710195058) do
     t.datetime "checked_at"
     t.string "status"
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
+    t.string "arrival_days", default: [], array: true
     t.index ["facility_id"], name: "index_availability_requests_on_facility_id"
     t.index ["user_id"], name: "index_availability_requests_on_user_id"
     t.index ["uuid"], name: "index_availability_requests_on_uuid", unique: true
@@ -120,9 +121,9 @@ ActiveRecord::Schema.define(version: 20170710195058) do
 
   create_table "notification_methods", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "type"
     t.string "param"
     t.jsonb "details"
+    t.string "notification_type"
     t.index ["user_id"], name: "index_notification_methods_on_user_id"
   end
 
