@@ -13,6 +13,8 @@ class AvailabilityRequest < ApplicationRecord
 
   scope :active, (-> { where(status: :active).where('date_end > ?', Time.now.to_date) })
 
+  after_create :welcome_email
+
   def available_matches(notified = false)
     availability_matches
       .send(notified ? 'notified' : 'notifiable')
@@ -27,5 +29,12 @@ class AvailabilityRequest < ApplicationRecord
 
   def site_matcher
     SiteMatcher.new(self)
+  end
+
+  def welcome_email
+    user.notification_methods.each do |nm|
+      next unless nm.notification_type == :email
+      NotifierMailer.new_availability_request(self, nm).deliver
+    end
   end
 end

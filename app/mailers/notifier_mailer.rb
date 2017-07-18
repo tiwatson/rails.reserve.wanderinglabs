@@ -3,4 +3,9 @@ class NotifierMailer < ApplicationMailer
     @availability_request = availability_request
     mail(to: notification_method.param, subject: "Campsite Available: #{@availability_request.facility.name}")
   end
+
+  def new_availability_request(availability_request, notification_method)
+    @availability_request = availability_request
+    mail(to: notification_method.param, subject: "Campsite Availability Request Confirmed: #{@availability_request.facility.name}")
+  end
 end
