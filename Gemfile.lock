@@ -111,6 +111,9 @@ GEM
     enumerize (2.1.2)
       activesupport (>= 3.2)
     erubi (1.6.0)
+    exception_notification (4.2.1)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.7.0)
@@ -234,6 +237,7 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.0)
       tilt (~> 2.0)
+    slack-notifier (2.2.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -280,6 +284,7 @@ DEPENDENCIES
   capistrano3-puma
   database_cleaner
   enumerize
+  exception_notification
   factory_girl_rails (~> 4.0)
   faker
   httparty
@@ -293,6 +298,7 @@ DEPENDENCIES
   rspec-rails (~> 3.5)
   sentry-raven
   shoulda-matchers!
+  slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
 
