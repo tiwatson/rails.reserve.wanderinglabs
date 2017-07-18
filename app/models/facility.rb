@@ -35,4 +35,8 @@ class Facility < ApplicationRecord
   def booking_end
     Date.today + (booking_window || 365)
   end
+
+  def cache_sites_count
+    update_attribute(:sites_count, sites.count)
+  end
 end

@@ -27,6 +27,7 @@ module InitialImport::RecreationGov
         )
         puts x
       end
+      facility.cache_sites_count
       nil
     end
 
