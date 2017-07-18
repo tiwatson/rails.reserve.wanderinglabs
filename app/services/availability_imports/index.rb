@@ -1,8 +1,4 @@
 class AvailabilityImports::Index
-  # Checks previous import hash vs hash provided to see if import is actually required
-  # If so.. import and kicks off Matcher service
-  # Always calls service that updates checked_(count/at) for active availability requests
-
   @queue = :import
 
   attr_reader :facility, :run_id, :hash
@@ -18,8 +14,7 @@ class AvailabilityImports::Index
       import = AvailabilityImport.create(facility: facility, run_id: run_id)
 
       AvailabilityImports::FromJson.new(import).perform
-      AvailabilityMatcher::Index.perform(import)
-      Resque.enqueue(AvailabilityImports::History, import.id)
+      AvailabilityMatcher::Index.perform(import.reload)
     end
 
     update_facility
