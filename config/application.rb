@@ -32,5 +32,9 @@ module WanderingLabsAvailability4Rails
 
 
     config.autoload_paths << "#{Rails.root}/app/services"
+
+    Raven.configure do |config|
+      config.dsn = 'https://4c46a8d9cf114b6988bdea8659da40d9:e62aa221de614d45b9c258c5e0047377@sentry.io/192584'
+    end
   end
 end
