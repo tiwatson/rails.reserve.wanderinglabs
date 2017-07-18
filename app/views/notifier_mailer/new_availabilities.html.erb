@@ -29,33 +29,40 @@
   }
 </style>
 
+
+
+<h2>We found a possible campsite... Be quick and reserve it now!!</h2>
+<p>
+  You asked us to look for
+  <%= @availability_request.stay_length -%> nights sometime between
+  <%= @availability_request.date_start -%> and <%= @availability_request.date_end -%>.
+</p>
+
 <table class="availTable">
   <% [false, true].each do |bool| %>
+    <% next unless @availability_request.available_matches(bool).count.positive? %>
     <tr>
       <td colspan=4>
         <h4 class="availTitle"><%= bool ? 'Previously notified but still available:' : 'Just recently available:' %></h4>
       </td>
     </tr>
-    <tr class="availHeader align-left">
-      <th>Date</th>
-      <th># Nights</th>
-      <th>Site</th>
-    <tr>
+    <%= render partial: 'new_availabilities_header_row' %>
 
     <% @availability_request.available_matches(bool).limit(25).each do |am| %>
+      <%= render partial: 'new_availabilities_item', locals: { am: am } %>
+    <% end %>
+    <% if @availability_request.available_matches(bool).count > 25 %>
       <tr>
-        <td><%= am.avail_date %></td>
-        <td><%= am.length %></td>
-        <td><%= am.site.site_num %></td>
-        <td>
+        <td colspan=4>
+          <h4 class="availTitle" style="text-align: center">Only showing 25 of <%= @availability_request.available_matches(bool).count -%> total.</h4>
           <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
             <tbody>
               <tr>
-                <td align="left">
+                <td align="center">
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tbody>
                       <tr>
-                        <td> <a href="<%= am.site.reserve_link(am.avail_date, @availability_request.stay_length) %>" target="_blank">Reserve</a> </td>
+                        <td> <a href="http://reserve.wanderinglabs.com/<%= @availability_request.uuid -%>" target="_blank">View all availabilities</a> </td>
                       </tr>
                     </tbody>
                   </table>
@@ -66,6 +73,20 @@
         </td>
       </tr>
     <% end %>
-
   <% end %>
 </table>
+
+<h4>
+This is just a notification. You have not yet made a reservation.</h4>
+<p>
+Act fast as someone else may reserve the site before you can. (It may already be re-booked)
+</p>
+<p>
+I got a reservation! Stop Notifications | No longer looking. Stop Notifications
+</p>
+<p>
+You can review this request and all your campsite requests at:
+</p>
+<p>
+  <a href="http://reserve.wanderinglabs.com/<%= @availability_request.uuid -%>">http://reserve.wanderinglabs.com/<%= @availability_request.uuid -%></a>
+</p>
