@@ -19,7 +19,7 @@ class AvailabilityRequest < ApplicationRecord
     availability_matches
       .send(notified ? 'notified' : 'notifiable')
       .available
-      .includes(:site)
+      .includes(site: [:facility])
       .order('avail_date ASC')
   end
 
