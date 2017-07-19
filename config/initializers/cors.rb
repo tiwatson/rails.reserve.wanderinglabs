@@ -17,7 +17,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors, debug: true, logger: (-> { Rails.logger }) do
   allow do
-    origins 'localhost:3000'
+    origins 'localhost:3000', 'reserve-beta.wanderinglabs.com.s3-website-us-east-1.amazonaws.com'
 
     resource '*',
              headers: :any,
