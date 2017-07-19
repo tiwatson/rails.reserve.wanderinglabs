@@ -13,6 +13,21 @@ Facility.where(sites_count: 0).each_with_index do |facility, x|
   begin
     InitialImport::RecreationGov::Sites.new(facility).import
   rescue
-    facility.update_attributes(status: :required_attention)
+    puts "RESCUED.................."
+    facility.update_attributes(status: :requires_attention)
   end
 end
+
+
+Facility.where('sites_count > 0').where(booking_window: nil).each_with_index do |facility, x|
+  puts "#{x} Facility: #{facility.id} - #{facility.name}"
+  begin
+    InitialImport::RecreationGov::BookingWindow.new(facility).find
+  rescue
+    puts "RESCUED.................."
+    facility.update_attributes(status: :requires_attention)
+  end
+end
+
+
+Facility.where('details @> ?', {LegacyFacilityID: '75118.0'}.to_json)

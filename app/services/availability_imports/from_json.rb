@@ -49,11 +49,17 @@ class AvailabilityImports::FromJson
   end
 
   def delete_availabilities
-    Availability.where.not(availability_import_id: import.id).delete_all
+    return unless last_import.present?
+    Availability.where(availability_import_id: last_import.id).delete_all
   end
 
   def history_filled
-    Availability.where.not(availability_import_id: import.id).map { |a| { site_id: a.site_id, avail_date: a.avail_date } }
+    return unless last_import.present?
+    Availability.where(availability_import_id: last_import.id).map { |a| { site_id: a.site_id, avail_date: a.avail_date } }
+  end
+
+  def last_import
+    @_last_import ||= AvailabilityImport.where.not(id: import.id).where(facility_id: import.facility_id).last
   end
 
   def sites_for(ids)
