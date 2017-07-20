@@ -41,7 +41,7 @@
 You can check in on this request using the link below. It will show the last time we checked for open campsites and how many times we have checked over all. In fact you can review all your different requests from this url. Bookmark it if you like.
 </p>
 <h3>
-<a href='http://<%= ENV['RESERVE_API'] -%>/<%= @availability_request.uuid -%>'>http://<%= ENV['RESERVE_API'] -%>/<%= @availability_request.uuid -%></a>
+<a href='<%= ENV['RESERVE_URL'] -%>/<%= @availability_request.uuid -%>'><%= ENV['RESERVE_URL'] -%>/<%= @availability_request.uuid -%></a>
 </h3>
 
 
@@ -58,7 +58,7 @@ We want to be as kind to Reserve America as possible, so please cancel this requ
         <table border="0" cellpadding="0" cellspacing="0">
           <tbody>
             <tr>
-              <td> <a href="http://<%= ENV['RESERVE_API'] -%>/c/<%= @availability_request.uuid -%>" target="_blank">Cancel this request</a> </td>
+              <td> <a href="<%= ENV['RESERVE_URL'] -%>/c/<%= @availability_request.uuid -%>" target="_blank">Cancel this request</a> </td>
             </tr>
           </tbody>
         </table>
