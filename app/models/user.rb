@@ -14,6 +14,12 @@ class User < ApplicationRecord
     update_columns(auth_token: nil)
   end
 
+  def generate_login_token
+    token = SecureRandom.hex
+    update_attributes(login_token: token)
+    token
+  end
+
   def init_notification_method
     return if notification_methods.count.positive?
     notification_methods.create(notification_type: :email, param: email)

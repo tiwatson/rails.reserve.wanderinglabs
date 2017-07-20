@@ -2,7 +2,8 @@ class LoginTokensController < ApplicationController
   def create
     resource = User.where(email: params[:email]).first
     if resource
-      # Resque.enqueue(SessionNew, resource.id)
+      resource.generate_login_token
+      NotifierMailer.user_token(resource).deliver
       render json: { status: :success }
     else
       render json: { status: :not_found }, status: 404
