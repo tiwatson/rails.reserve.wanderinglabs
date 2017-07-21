@@ -1,6 +1,8 @@
 class AvailabilityRequestsController < ApplicationController
+  before_action :login_required, only: [:index]
+
   def index
-    @availability_requests = AvailabilityRequest.active
+    @availability_requests = current_user.availability_requests.active
     render json: @availability_requests
   end
 

@@ -1,3 +1,7 @@
 class FacilitySerializer < ActiveModel::Serializer
-  attributes :id, :name, :agency_id, :type, :details
+  attributes :id, :name, :agency_id, :type, :sub_name
+
+  def sub_name
+    "#{object.details['Parent']}, #{object.details['AddressStateCode']}"
+  end
 end
