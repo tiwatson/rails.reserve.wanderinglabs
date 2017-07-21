@@ -7,6 +7,7 @@ class AvailabilityRequests::Creator
 
   def create
     ar = AvailabilityRequest.new(merged_params)
+    ar.cache_site_ids
     ar.save
     ar.reload # so we have uuid
   end

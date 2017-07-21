@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_many :notification_methods
   has_many :availability_requests
 
+  validates :email, presence: true, uniqueness: true
+
   after_create :init_notification_method
 
   def generate_auth_token
