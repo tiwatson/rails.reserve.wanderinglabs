@@ -99,4 +99,39 @@ RSpec.describe AvailabilityMatcher::Search do
       end
     end
   end
+
+  describe 'Matching bug' do
+    let!(:availabilities) do
+      [
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/14/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/16/2017', '%m/%d/%Y')),
+
+        FactoryGirl.create(:availability, availability_import: import, site: site1, avail_date: Date.strptime('11/18/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site1, avail_date: Date.strptime('11/25/2017', '%m/%d/%Y')),
+
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/18/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/19/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/20/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/21/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/22/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/23/2017', '%m/%d/%Y')),
+        FactoryGirl.create(:availability, availability_import: import, site: site2, avail_date: Date.strptime('11/24/2017', '%m/%d/%Y')),
+      ]
+    end
+
+    let(:availability_request) do
+      FactoryGirl.create(
+        :availability_request,
+        date_start: Date.strptime('11/10/2017', '%m/%d/%Y'),
+        date_end: Date.strptime('11/25/2017', '%m/%d/%Y'),
+        stay_length: 1,
+        site_ids: [site1.id, site2.id]
+      )
+    end
+
+    it 'matches correctly' do
+      expect(search.any? { |s| s[:avail_min] == '2017-11-18' && s[:site_id] == site1.id && s[:length] == 1 }).to be true
+      expect(search.any? { |s| s[:avail_min] == '2017-11-18' && s[:site_id] == site2.id && s[:length] == 7 }).to be true
+    end
+  end
 end

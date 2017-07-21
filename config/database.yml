@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: wandering-labs-availability-4-rails_development
+  database: wandering_labs_availability_4_rails_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
