@@ -1,16 +1,21 @@
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
-  # before_action :login_required
+  before_action :set_current_user
   # helper_method :person_signed_in?, :current_user
 
   def user_signed_in?
-    current_person.present?
+    current_user.present?
   end
 
   def login_required
-    return true if authenticate_token
+    return true if user_signed_in?
     render json: { errors: [{ detail: 'Access denied' }] }, status: 401
+  end
+
+  def set_current_user
+    current_user
+    true
   end
 
   def current_user

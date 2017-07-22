@@ -12,7 +12,7 @@ class AvailabilityRequestsController < ApplicationController
   end
 
   def create
-    availability_request = AvailabilityRequests::Creator.new(availability_request_params).create
+    availability_request = AvailabilityRequests::Creator.new(availability_request_params, current_user).create
     render json: availability_request
   end
 
@@ -26,6 +26,9 @@ class AvailabilityRequestsController < ApplicationController
   private
 
   def availability_request_params
-    params.require(:availability_request).permit(:facility_id, :email, :date_start, :date_end, :stay_length, :sewer)
+    params.require(:availability_request).permit(
+      :facility_id, :email, :date_start, :date_end, :stay_length, :sewer, :pullthru, :water, :min_length,
+      :min_electric, :site_type, :arrival_days, :specific_site_ids
+    )
   end
 end
