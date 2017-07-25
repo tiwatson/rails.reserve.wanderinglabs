@@ -31,6 +31,8 @@ gem "sentry-raven"
 gem 'exception_notification'
 gem 'slack-notifier'
 
+gem "mechanize"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -49,9 +51,6 @@ group :development do
   # gem "capistrano-resque"
   gem 'capistrano3-puma'
   gem 'capistrano3-nginx'
-
-  gem "mechanize"
-
 end
 
 group :test do
