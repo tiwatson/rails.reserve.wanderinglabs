@@ -17,7 +17,7 @@ class Facility < ApplicationRecord
   def scraper_details
     {
       facilityId: id,
-      contractCode: 'NRSO',
+      contractCode: contract_code,
       parkId: park_id,
       startDate: scrape_start.strftime('%m/%d/%Y'),
       endDate: scrape_end.strftime('%m/%d/%Y'),

@@ -8,7 +8,7 @@ module InitialImport::ReserveAmerica
 
     def details
       {
-        tyoe: 'Facility::ReserveAmerica',
+        type: 'Facility::ReserveAmerica',
         name: name,
         details: {
           slug: slug,

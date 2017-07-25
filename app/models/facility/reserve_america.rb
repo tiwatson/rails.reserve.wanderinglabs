@@ -1,4 +1,8 @@
 class Facility::ReserveAmerica < Facility
+  def contract_code
+    details['contract_code']
+  end
+
   def park_id
     details['park_id']
   end
