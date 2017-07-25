@@ -13,6 +13,8 @@ class AvailabilityRequests::Creator
     ar.status = :active
     if ar.save
       ar.reload # so we have uuid
+    else
+      Rails.logger.fatal ar.errors.to_json
     end
     ar
   end
