@@ -1,5 +1,5 @@
 class Stats
-  @queue = :common
+  @queue = :other
   def self.perform
     notifier = Slack::Notifier.new ENV['SLACK_HOOK'], channel: "#stats", username: "statBot"
     notifier.ping output
