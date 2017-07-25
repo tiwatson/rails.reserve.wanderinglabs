@@ -36,7 +36,7 @@ class AvailabilityRequest < ApplicationRecord
   def welcome_email
     user.notification_methods.each do |nm|
       next unless nm.notification_type == :email
-      NotifierMailer.new_availability_request(self, nm).deliver
+      NotifierMailer.new_availability_request(self.reload, nm).deliver
     end
   end
 end

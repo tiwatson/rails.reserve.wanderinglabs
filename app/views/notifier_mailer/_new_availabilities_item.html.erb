@@ -10,7 +10,7 @@
             <table border="0" cellpadding="0" cellspacing="0">
               <tbody>
                 <tr>
-                  <td> <a href="<%= ENV['RESERVE_URL'] -%>/e/<%= @availability_request.uuid -%>" target="_blank">Reserve</a> </td>
+                  <td> <a href="<%= ENV['RESERVE_URL'] -%>/e/<%= Base62.encode(@availability_request.id) -%>" target="_blank">Reserve</a> </td>
                 </tr>
               </tbody>
             </table>
