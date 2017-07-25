@@ -49,6 +49,9 @@ group :development do
   # gem "capistrano-resque"
   gem 'capistrano3-puma'
   gem 'capistrano3-nginx'
+
+  gem "mechanize"
+
 end
 
 group :test do

@@ -25,10 +25,6 @@ class Facility < ApplicationRecord
     }
   end
 
-  def park_id
-    details['LegacyFacilityID'].to_i.to_s
-  end
-
   def scrape_start
     [Time.now.to_date, availability_requests.active.map(&:date_start).sort.first].max
   end
