@@ -67,15 +67,10 @@ We want to be as kind to Reserve America as possible, so please cancel this requ
   </tbody>
 </table>
 
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "EmailMessage",
-  "potentialAction": {
-    "@type": "ViewAction",
-    "target": "<%= ENV['RESERVE_URL'] -%>/c/<%= @availability_request.uuid -%>",
-    "name": "Check Status"
-  },
-  "description": "Check the status of your request"
-}
-</script>
+<div itemscope itemtype="http://schema.org/EmailMessage">
+  <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
+    <link itemprop="target" href="<%= ENV['RESERVE_URL'] -%>/c/<%= @availability_request.uuid -%>"/>
+    <meta itemprop="name" content="Check Status"/>
+  </div>
+  <meta itemprop="description" content="Check the status of your request"/>
+</div>
