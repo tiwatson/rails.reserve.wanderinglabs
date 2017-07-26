@@ -67,10 +67,14 @@ We want to be as kind to Reserve America as possible, so please cancel this requ
   </tbody>
 </table>
 
-<div itemscope itemtype="http://schema.org/EmailMessage">
-  <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
-    <link itemprop="target" href="<%= ENV['RESERVE_URL'] -%>/c/<%= @availability_request.uuid -%>"/>
-    <meta itemprop="name" content="Check Status"/>
+<div itemscope itemtype="http://schema.org/EmailMessage" >
+  <meta itemprop="description" content="Check the status of your request" >
+  <div itemprop="action" itemscope itemtype="http://schema.org/ViewAction" >
+    <link itemprop="url" href="<%= ENV['RESERVE_URL'] -%>/c/<%= @availability_request.uuid -%>" >
+    <meta itemprop="name" content="Check Status" >
   </div>
-  <meta itemprop="description" content="Check the status of your request"/>
+  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization" >
+    <meta itemprop="name" content="WanderingLabs" >
+    <link itemprop="url" href="https://reserve.wanderinglabs.com/" >
+  </div>
 </div>
