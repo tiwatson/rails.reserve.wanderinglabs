@@ -7,8 +7,8 @@ class SiteMatcher
   def matching_site_ids
     return availability_request.specific_site_ids unless availability_request.specific_site_ids.empty?
     matches = availability_request.facility.sites
-    matches = matches.where(water: availability_request.water) unless availability_request.water.nil?
-    matches = matches.where(sewer: availability_request.sewer) unless availability_request.sewer.nil?
+    matches = matches.where(water: true) if availability_request.water?
+    matches = matches.where(sewer: true) if availability_request.sewer?
     matches = matches.electric(availability_request.min_electric) if availability_request.min_electric
     matches = matches.site_length(availability_request.min_length) if availability_request.min_length
     matches = matches.where(site_type: site_type) unless site_type.nil?
