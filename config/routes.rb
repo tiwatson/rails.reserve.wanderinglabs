@@ -24,5 +24,8 @@ Rails.application.routes.draw do
       end
     end
     resources :sites, only: %i[index]
+    member do
+      get :grouped_availabilities
+    end
   end
 end
