@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resource :sessions
   resource :login_tokens, only: %i[create]
   resource :users
+  resources :payments, only: %i[create]
 
   resources :availability_requests do
     resources :availability_matches, only: %i[index]

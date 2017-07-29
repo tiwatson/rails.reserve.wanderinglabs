@@ -1,10 +1,15 @@
 class User < ApplicationRecord
   has_many :notification_methods
   has_many :availability_requests
+  has_many :payments
 
   validates :email, presence: true, uniqueness: true
 
   after_create :init_notification_method
+
+  def mark_premium
+    update_attributes(premium: true, premium_until: 1.year.from_now)
+  end
 
   def generate_auth_token
     token = SecureRandom.hex

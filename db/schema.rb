@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725051148) do
+ActiveRecord::Schema.define(version: 20170728213010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,20 @@ ActiveRecord::Schema.define(version: 20170725051148) do
     t.index ["user_id"], name: "index_notification_methods_on_user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "provider"
+    t.decimal "total"
+    t.datetime "paid_at"
+    t.string "status"
+    t.string "email"
+    t.jsonb "params"
+    t.jsonb "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
   create_table "sites", force: :cascade do |t|
     t.bigint "facility_id"
     t.string "ext_site_id"
@@ -153,6 +167,9 @@ ActiveRecord::Schema.define(version: 20170725051148) do
     t.string "auth_token"
     t.datetime "last_seen"
     t.string "login_token"
+    t.boolean "premium", default: false, null: false
+    t.date "premium_until"
+    t.integer "priority", default: 1000
     t.index ["auth_token"], name: "index_users_on_auth_token"
     t.index ["login_token"], name: "index_users_on_login_token"
   end
@@ -169,5 +186,6 @@ ActiveRecord::Schema.define(version: 20170725051148) do
   add_foreign_key "availability_requests", "users"
   add_foreign_key "facilities", "agencies"
   add_foreign_key "notification_methods", "users"
+  add_foreign_key "payments", "users"
   add_foreign_key "sites", "facilities"
 end
