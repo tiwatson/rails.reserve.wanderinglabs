@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728213010) do
+ActiveRecord::Schema.define(version: 20170729235845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20170728213010) do
     t.date "date_end"
     t.jsonb "history_open"
     t.jsonb "history_filled"
+    t.datetime "created_at"
     t.index ["facility_id"], name: "index_availability_imports_on_facility_id"
   end
 

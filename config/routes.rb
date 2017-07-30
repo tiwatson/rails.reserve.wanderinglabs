@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resource :users
   resources :payments, only: %i[create]
 
+  resources :availability_imports
   resources :availability_requests do
     resources :availability_matches, only: %i[index]
   end
