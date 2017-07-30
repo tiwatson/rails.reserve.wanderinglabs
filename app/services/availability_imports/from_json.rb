@@ -31,8 +31,8 @@ class AvailabilityImports::FromJson
     import.update_attributes(
       history_open: history_open,
       history_filled: history_filled,
-      date_start: body['startDate'],
-      date_end: body['endDate']
+      date_start: Date.strptime(body['startDate'], '%m/%d/%Y'),
+      date_end: Date.strptime(body['endDate'], '%m/%d/%Y')
     )
   end
 
