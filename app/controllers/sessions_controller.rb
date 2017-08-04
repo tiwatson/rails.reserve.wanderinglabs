@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
     if resource
       auth_token = resource.generate_auth_token
-      render json: { auth_token: auth_token }
+      render json: { auth_token: auth_token, user: resource }
     else
       invalid_login_attempt
     end
